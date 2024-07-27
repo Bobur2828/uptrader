@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asosiy Sahifa</title>
+    <style>
+        .active { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Главная Страница</h1>
+    <ul>
+        {% for item in menu_items %}
+            <li>
+                <a href="{{ item.parent.url }}" class="{% if active_item == item.parent.url %}active{% endif %}">
+                    {{ item.parent.title }}
+                </a>
+                {% if item.children %}
+                    <ul>
+                        {% for child in item.children %}
+                            <li>
+                                <a href="{{ child.url }}" class="{% if active_item == child.url %}active{% endif %}">
+                                    {{ child.title }}
+                                </a>
+                                {% if child.children %}
+                                    <ul>
+                                        {% for grandchild in child.children %}
+                                            <li>
+                                                <a href="{{ grandchild.url }}" class="{% if active_item == grandchild.url %}active{% endif %}">
+                                                    {{ grandchild.title }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
